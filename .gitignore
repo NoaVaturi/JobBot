@@ -12,4 +12,4 @@ env/
 logs/
 .docker/
 data/
-
+n8n-data/
