@@ -54,7 +54,6 @@ It demonstrates real-world event-driven automation, data filtering, and workflow
 | 🔹 **telegram_bot.py** | Formats and sends Telegram messages
 | 🔹 **database.py** | SQLite setup and deduplication logic
 | 🔹 **config.py** | Loads environment variables
-| 🔹 **n8n-data/** | Example n8n workflow (Schedule → HTTP Request)
 | 🔹 **docker-compose.yml** | Defines Flask + n8n services
 | 🔹 **.env.example** | Example configuration template
 
