@@ -1,0 +1,57 @@
+services:
+  jobbot:
+    build: .
+    container_name: jobbot
+    restart: unless-stopped
+    ports:
+      - "${PORT:-8000}:8000"
+    env_file:
+      - .env
+    environment:
+      # Override database path for Docker
+      - DATABASE_URL=sqlite:///data/jobs.db
+    volumes:
+      # Mount data directory to persist database
+      - ./data:/app/data
+      # Optional: Mount logs directory if you add logging
+      - ./logs:/app/logs
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/health').read()"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    networks:
+      - jobbot-network
+
+  n8n:
+    image: n8nio/n8n:latest
+    container_name: n8n
+    restart: unless-stopped
+    ports:
+      - "${N8N_PORT:-5678}:5678"
+    volumes:
+      - ./n8n-data:/home/node/.n8n
+    # environment:
+    #   - N8N_BASIC_AUTH_ACTIVE=${N8N_BASIC_AUTH_ACTIVE:-false}
+    #   - N8N_BASIC_AUTH_USER=${N8N_USER:-admin}
+    #   - N8N_BASIC_AUTH_PASSWORD=${N8N_PASSWORD:-changeme}
+    #   - N8N_HOST=${N8N_HOST:-0.0.0.0}
+    #   - N8N_PORT=5678
+    #   - N8N_PROTOCOL=${N8N_PROTOCOL:-http}
+    #   - WEBHOOK_URL=${WEBHOOK_URL:-http://localhost:5678}
+    networks:
+      - jobbot-network
+    depends_on:
+      - jobbot
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:5678/healthz"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+networks:
+  jobbot-network:
+    driver: bridge
+
