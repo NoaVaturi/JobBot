@@ -14,7 +14,7 @@ It demonstrates real-world event-driven automation, data filtering, and workflow
 
 | Category | Technologies |
 |-----------|---------------|
-| **Automation & Workflow** | n8n · Cron Scheduling · Webhooks |
+| **Automation & Workflow** | N8N · Cron Scheduling · Webhooks |
 | **Backend Service** | Flask (Python) |
 | **Data Storage** | SQLite (persistent via Docker volume) |
 | **Notifications** | Telegram Bot API |
@@ -24,20 +24,9 @@ It demonstrates real-world event-driven automation, data filtering, and workflow
 ---	
 		
 📊 Architecture Diagram
-Workflow:
-+-----------+         +----------------+         +-----------------+         +----------------+
-|  Scheduler|  --->   |   n8n Workflow |  --->   |  Flask API (/webhook) |  --->   |  Telegram Chat |
-+-----------+         +----------------+         +-----------------+         +----------------+
-                            |
-                            v
-                      Job Search Logic
-                (Drushim · GotFriends · SerpAPI)
-                            |
-                            v
-                       Keyword Filter
-                            |
-                            v
-                         SQLite DB
+
+<img width="808" height="482" alt="Screenshot 2025-11-10 at 13 21 35" src="https://github.com/user-attachments/assets/63875f9d-2b50-47b8-9607-843c9d3b27e5" />
+
 
 ---
 
@@ -58,7 +47,7 @@ Workflow:
 ## 📁 Repository Breakdown
 | Folder / File | Description |
 |-------------|-------------|
-| 🔹 **app.py** | AFlask API and /webhook/n8n endpoint
+| 🔹 **app.py** | Flask API and /webhook/n8n endpoint
 | 🔹 **job_service.py** | Core service logic (search → filter → save → send)
 | 🔹 **job_search.py** | Handles scraping from Drushim, GotFriends, and SerpAPI
 | 🔹 **job_filter.py** | Filters jobs by keywords and experience (English + Hebrew)
@@ -71,19 +60,19 @@ Workflow:
 
 ---
 
-## 📸 Screenshots & Demo
+## 📸 Screenshots
 
 | Section | Preview |
 |----------|----------|
-| **N8N UI** | ![argocd-ui](https://github.com/user-attachments/assets/fce78f8e-cff1-493f-a216-028203e65069) |
-| **Bot- Telegram Chat** | <img width="1792" height="949" alt="web-prev" src="https://github.com/user-attachments/assets/b0456dd5-ad5f-492b-96e6-0a59ee70df67" /><br>🎥 [**Watch Demo Video**](docs/web.mp4) |
+| **N8N UI** | <img width="1479" height="1061" alt="Screenshot 2025-11-10 at 12 50 01" src="https://github.com/user-attachments/assets/ec79085d-5751-4a7a-a582-352238fda2d2" /> |
+| **Bot- Telegram Chat** | <img width="861" height="865" alt="Screenshot 2025-11-10 at 12 50 18" src="https://github.com/user-attachments/assets/d7fadf7e-fe73-4bcb-b33e-aae1fafd7824" /> |
 
 ---	
 
 ## ⚙️ Key Features
 | Feature | Description |
 |----------|--------------|
-| ✅ Automated Scheduling | n8n runs the job search on a predefined schedule |
+| ✅ Automated Scheduling | N8N runs the job search on a predefined schedule |
 | ✅ Smart Filtering | Matches junior/0–3y roles and key DevOps terms |
 | ✅ Telegram Notifications | Sends real-time messages with job details |
 | ✅ Persistent Storage | SQLite DB keeps job history and prevents duplicates |
@@ -100,11 +89,6 @@ Workflow:
 | Duplicate messages after restarts | Used Docker volume for persistent SQLite database |
 | No results from limited sources | Added SerpAPI (Google Jobs) integration for more coverage |
 | Workflow timing | Offloaded search to background thread to prevent n8n timeouts |
-
----
-
-## 🧩 Tools Used
-Docker · Flask · Python · n8n · Telegram Bot API · SQLite · BeautifulSoup · SerpAPI
 
 ---
 
@@ -144,27 +128,12 @@ That’s all — the jobBot runs automatically, searching, filtering, and sendin
 
 ---
 
-💬 Example Telegram Output
-🚀 Found 3 new job(s) today!
-
-1/3 - Junior DevOps Engineer  
-🏢 Company: Amdocs  
-📍 Location: Tel Aviv  
-🔗 Source: DRUSHIM  
-📝 Description:  
-Looking for a Junior DevOps Engineer with AWS & Jenkins experience...  
-
-🔗 [View Job](https://www.drushim.co.il/job/123456/)
+## 🧩 Tools Used
+`Docker` · `Flask` · `N8N` · `Telegram Bot API` · `SQLite` · `SerpAPI` · `BeautifulSoup`
 
 ---
 
-## 🧠 Learnings
-Building this project helped me combine:
-Automation + APIs — integrating n8n with Flask and Telegram
-Data filtering logic — parsing and cleaning real-world job listings
-Persistence & state — using SQLite for deduplication across runs
-Scalable container design — two coordinated microservices via Docker Compose
+## 👩‍💻 Author
+**Noa Vaturi**  
+💼 [LinkedIn](https://linkedin.com/in/noa-vaturi) · 💻 [GitHub](https://github.com/NoaVaturi)
 
-👩‍💻 Author
-Noa Vaturi
-💼 LinkedIn · 💻 GitHub
